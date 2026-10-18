@@ -1,12 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/profit.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FinTrack Pro</title>
+
+    <!-- Performance: Preconnect & DNS-Prefetch to backend and font CDNs -->
+    <link rel="preconnect" href="https://fintrackpro-backend-trtl.onrender.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fintrackpro-backend-trtl.onrender.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- Core SEO Meta Tags -->
+    <title>FinTrack Pro — Institutional Indian Portfolio Analytics & Wealth Management</title>
+    <meta
+      name="description"
+      content="FinTrack Pro is an institutional-grade wealth tracking and valuation platform designed for Indian investors. Track NSE/BSE equities, Union Budget capital gains, dividends, SIPs, and loan amortizations."
+    />
+    <meta
+      name="keywords"
+      content="FinTrack Pro, portfolio tracker India, NSE BSE stock portfolio, capital gains tax calculator, SIP calculator, loan amortization schedule, equity valuation, Finance portfolio, FinTrack Pro Dinesh"
+    />
+    <meta name="author" content="Vennapusa Dinesh Kumar Reddy" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fintrackpro.vercel.app/" />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FinTrack Pro" />
+    <meta property="og:title" content="FinTrack Pro — Institutional Indian Wealth Intelligence" />
+    <meta
+      property="og:description"
+      content="Track live NSE/BSE quotes, compute LTCG/STCG taxes, simulate SIP/Annuities, and export color audit-ready PDF statements."
+    />
+    <meta property="og:url" content="https://fintrackpro.vercel.app/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FinTrack Pro — Indian Portfolio Analytics & Financial Tools" />
+    <meta
+      name="twitter:description"
+      content="Real-time Indian portfolio tracker with tax optimization and valuation calculators."
+    />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Structured Data (JSON-LD) for Google Rich Snippets -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FinTrack Pro",
+        "url": "https://fintrackpro.vercel.app",
+        "description": "Comprehensive portfolio tracker and institutional valuation suite for Indian capital markets.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "creator": {
+          "@type": "Person",
+          "name": "Vennapusa Dinesh Kumar Reddy",
+          "jobTitle": "Founder & Lead Architect"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body class="bg-[#060811] text-zinc-100 antialiased selection:bg-sky-500 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

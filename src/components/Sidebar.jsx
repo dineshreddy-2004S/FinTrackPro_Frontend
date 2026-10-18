@@ -16,7 +16,7 @@ import {
   LogOut,
   X,
   Download,
-  Calculator, // NEW
+  Calculator,
 } from 'lucide-react';
 
 export default function Sidebar({
@@ -31,10 +31,9 @@ export default function Sidebar({
   const { user, logout } = useContext(AuthContext);
   const { theme, toggleTheme } = useTheme();
 
-  // Navigation Items Including Financial Tools
   const navItems = [
     { id: 'dashboard', label: 'Portfolio Dashboard', icon: LayoutDashboard },
-    { id: 'tools', label: 'Financial Tools Suite', icon: Calculator }, // <-- NEW
+    { id: 'tools', label: 'Financial Tools Suite', icon: Calculator },
     { id: 'trends', label: 'Stock Trends & Analytics', icon: TrendingUp },
     { id: 'companies', label: 'All Listed Companies', icon: Building2 },
     { id: 'watchlist', label: 'My Active Watchlist', icon: Star },
@@ -65,10 +64,10 @@ export default function Sidebar({
           theme === 'dark'
             ? 'bg-[#090d16] text-zinc-100 border-r border-zinc-800/90'
             : 'bg-white text-zinc-800 border-r border-zinc-200'
-        } p-5 flex flex-col justify-between shadow-2xl overflow-y-auto`}
+        } p-5 flex flex-col justify-between shadow-2xl overflow-y-auto no-scrollbar`}
       >
         <div className="space-y-6">
-          {/* Brand Header */}
+          {/* Rebranded Header */}
           <div className="flex items-center justify-between pb-4 border-b border-zinc-500/10">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/20">
@@ -76,10 +75,10 @@ export default function Sidebar({
               </div>
               <div className="leading-tight">
                 <span className="font-extrabold text-base tracking-tight bg-gradient-to-r from-sky-400 via-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">
-                    FinTrack Pro
+                  FinTrack Pro
                 </span>
                 <span className="block text-[9px] uppercase font-bold tracking-wider text-zinc-500 mt-0.5">
-                  Institutional Tools & Analytics
+                  Institutional Wealth Hub
                 </span>
               </div>
             </div>
@@ -196,7 +195,7 @@ export default function Sidebar({
           </div>
         </div>
 
-        {/* User Card */}
+        {/* User Profile Footer */}
         <div className="pt-4 mt-6 border-t border-zinc-500/10">
           <div className="flex items-center justify-between p-2.5 rounded-xl bg-zinc-500/5 border border-zinc-500/10">
             <div className="flex items-center gap-2.5 overflow-hidden">
