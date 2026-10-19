@@ -1,53 +1,124 @@
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../api/axiosClient';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Initialize session state on component mount
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
-    if (storedUser && storedToken) {
+    const initializeAuth = () => {
       try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        localStorage.removeItem('user');
+        const storedToken = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
+
+        if (storedToken && storedUser && storedToken !== 'undefined' && storedUser !== 'undefined') {
+          setToken(storedToken);
+          setUser(JSON.parse(storedUser));
+        } else {
+          // Clean up corrupted storage keys
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setToken(null);
+          setUser(null);
+        }
+      } catch (err) {
+        console.error('[Auth Init Error]:', err);
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setToken(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+
+    initializeAuth();
   }, []);
 
+  // 1. User Login Handler
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password });
-    localStorage.setItem('token', res.data.token);
-    localStorage.setItem('user', JSON.stringify(res.data.user));
-    setUser(res.data.user);
-    return res.data;
+    try {
+      const response = await api.post('/auth/login', {
+        email: email.trim().toLowerCase(),
+        password,
+      });
+
+      const { token: receivedToken, user: userData } = response.data;
+
+      if (!receivedToken || !userData) {
+        throw new Error('Authentication response missing credentials.');
+      }
+
+      // Synchronize in-memory and local storage
+      localStorage.setItem('token', receivedToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      setToken(receivedToken);
+      setUser(userData);
+
+      return response.data;
+    } catch (error) {
+      console.error('[Login Service Error]:', error);
+      throw error;
+    }
   };
 
+  // 2. User Register Handler
   const register = async (name, email, password) => {
-    const res = await api.post('/auth/register', { name, email, password });
-    localStorage.setItem('token', res.data.token);
-    localStorage.setItem('user', JSON.stringify(res.data.user));
-    setUser(res.data.user);
-    return res.data;
+    try {
+      const response = await api.post('/auth/register', {
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password,
+      });
+
+      const { token: receivedToken, user: userData } = response.data;
+
+      if (!receivedToken || !userData) {
+        throw new Error('Registration response missing credentials.');
+      }
+
+      localStorage.setItem('token', receivedToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      setToken(receivedToken);
+      setUser(userData);
+
+      return response.data;
+    } catch (error) {
+      console.error('[Register Service Error]:', error);
+      throw error;
+    }
   };
 
+  // 3. User Logout Handler
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setToken(null);
     setUser(null);
-    // Explicitly navigate to the Landing Page root
-    window.location.href = '/';
+    window.location.href = '/auth?mode=login';
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loading,
+        login,
+        register,
+        logout,
+        isAuthenticated: !!token && !!user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
+
+export default AuthContext;

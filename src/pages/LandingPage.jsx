@@ -356,7 +356,7 @@ export default function LandingPage() {
             <div className="relative shrink-0">
               <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden border-2 border-sky-500/30 p-1 bg-gradient-to-tr from-sky-500 to-indigo-600 shadow-xl shadow-sky-500/20">
                 <img
-                  src="/founder.jpg"
+                  src="https://avatars.githubusercontent.com/u/169218157?v=4'"
                   alt="Dinesh Kumar Reddy"
                   onError={(e) => {
                     // Fallback to high-res stylized SVG avatar if custom photo asset is not yet added
