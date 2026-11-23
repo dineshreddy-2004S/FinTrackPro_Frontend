@@ -29,7 +29,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 30000, // 30-second timeout to handle cold starts on free hosting tiers
+  timeout: 65000, // 65-second timeout to handle Render + TiDB Cloud cold starts
 });
 
 // Request Interceptor: Attach JWT Bearer Token to all authorized requests
